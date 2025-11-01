@@ -827,12 +827,20 @@ header {
   color: #fafdff;
 }
 .improve-card-name p {
-  color: var(--white);
+  color: #FAFDFFB2;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
   text-align: center;
   opacity: 0.7;
+}
+.swiper-slide-prev .improve-card-name p{
+  opacity: 1;
+  color: white;
+}
+.swiper-slide-active .improve-card-name p{
+  opacity: 1;
+  color: white;
 }
 .why-us-cnt {
   background: #1b1c1f;
