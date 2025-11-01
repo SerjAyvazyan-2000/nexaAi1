@@ -128,7 +128,7 @@ function initSwiper() {
   wrapper.addEventListener("mouseleave", () => reviewsSwiper.autoplay.start());
 }
 
-document.addEventListener("DOMContentLoaded", initSwiper);
+window.addEventListener("load", initSwiper);
 window.addEventListener("resize", () => {
   clearTimeout(window._rs);
   window._rs = setTimeout(initSwiper, 200);
