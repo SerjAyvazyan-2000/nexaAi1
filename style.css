@@ -749,7 +749,7 @@ header {
   margin: 28px auto 0;
 }
 .hero-mockup {
-  width: 320px;
+  width: 332px;
   height: 400px;
   position: absolute;
   left: 50%;
@@ -764,6 +764,9 @@ header {
   margin-top: 5px;
   max-width: 288px;
   margin: 12px auto 0;
+}
+.hero-swiper{
+  z-index: 3;
 }
 .hero-mockup-bg {
   position: absolute;
@@ -831,6 +834,7 @@ header {
 }
 .swiper-slide-prev .result {
   display: block;
+  z-index: 3;
 }
 .swiper-slide-prev .original {
   display: none;
