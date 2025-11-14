@@ -66,33 +66,37 @@ updateImproveHeroStyle();
 
 
 
+let reviewsSwiper = null;
+let lastMode = null;
 
-let reviewsSwiper;
-let currentDirection;
+function initReviewsSwiper() {
+  const isDesktop = window.innerWidth >= 992;
+  const mode = isDesktop ? "desktop" : "mobile";
 
-function initSwiper() {
-  const isMobile = window.innerWidth <= 992;
-  const direction = isMobile ? "horizontal" : "vertical";
+  if (reviewsSwiper && lastMode === mode) return;
 
-  if (reviewsSwiper && currentDirection === direction) return;
+  if (reviewsSwiper) {
+    reviewsSwiper.destroy(true, true);
+    reviewsSwiper = null;
+  }
 
-  if (reviewsSwiper) reviewsSwiper.destroy(true, true);
-
-  currentDirection = direction;
+  lastMode = mode;
 
   reviewsSwiper = new Swiper(".reviews-swiper", {
-    direction,
+    direction: isDesktop ? "vertical" : "horizontal",
     loop: true,
-    speed: isMobile ? 600 : 5500,
+    speed: isDesktop ? 6000 : 600,
+    allowTouchMove: !isDesktop,
 
-    autoplay: !isMobile && {
-      delay: 0,
-      disableOnInteraction: false,
-    },
+    autoplay: isDesktop
+      ? {
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false, 
+        }
+      : false,
 
-    allowTouchMove: isMobile,
-
-    slidesPerView: 3,
+    slidesPerView: isDesktop ? 3 : 1,
     spaceBetween: 10,
 
     pagination: {
@@ -102,19 +106,33 @@ function initSwiper() {
 
     breakpoints: {
       320: { slidesPerView: 1 },
-      576: { slidesPerView: 1.5 },
+      576: { slidesPerView: 1.4 },
       768: { slidesPerView: 2 },
       992: { slidesPerView: 3 },
     },
   });
 
-  const wrapper = document.querySelector(".reviews-swiper");
-  wrapper.onmouseenter = () => !isMobile && reviewsSwiper.autoplay?.stop?.();
-  wrapper.onmouseleave = () => !isMobile && reviewsSwiper.autoplay?.start?.();
+  if (isDesktop) {
+    const wrapper = document.querySelector(".reviews-swiper");
+
+    wrapper.addEventListener("mouseenter", () => {
+      if (reviewsSwiper?.autoplay) {
+        reviewsSwiper.autoplay.stop();
+      }
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      if (reviewsSwiper?.autoplay) {
+        reviewsSwiper.autoplay.start();
+      }
+    });
+  }
 }
 
-window.addEventListener("load", initSwiper);
+window.addEventListener("load", initReviewsSwiper);
+
+let resizeTimer = null;
 window.addEventListener("resize", () => {
-  clearTimeout(window._resizeTimer);
-  window._resizeTimer = setTimeout(initSwiper, 250);
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initReviewsSwiper, 200);
 });

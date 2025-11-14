@@ -1513,12 +1513,14 @@ footer {
     background: #fafdff !important;
     opacity: 0.2 !important;
     margin: 0 !important;
+     border-radius: 50% !important;
   }
   .swiper-pagination-bullet-active {
     width: 8px !important;
     height: 8px !important;
     background: #dce8ff !important;
     opacity: 1 !important;
+     border-radius: 50% !important;
   }
   .reviews-swiper {
     overflow: unset !important;
